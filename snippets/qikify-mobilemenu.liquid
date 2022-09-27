@@ -1,0 +1,20 @@
+<script type="text/javascript" src="https://sdk.qikify.com/mobilemenu/app-v1.js" defer="defer"></script>
+<script id="qikify-mobilemenu-custom-script">/* Mobile Menu - collapse submenus by default - Henry - 06Jan2022 */
+document.addEventListener('mobilemenu-loaded', function() {
+  setTimeout(function() {
+    document.querySelectorAll('.dmenu_heading--collapsible').forEach(function(item) {
+      item.click();
+    });
+  }, 300);
+});</script>
+<style id="qikify-mobilemenu-custom-style">/*TRAN Son Tung - 17829 - 22/06/2021*/
+#qikify-mobilemenu-menu {
+  background: white;
+}
+h3.dmenu_heading {
+  font-size: 17px !important;
+  border-bottom: 1px solid #000;
+}
+.popup-navigation.js-popup-navigation {
+  width: 100vw;
+}</style>
