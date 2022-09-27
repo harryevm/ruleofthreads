@@ -1,0 +1,11 @@
+{% if settings.swatch_enabled and settings.swatch_value_list != blank %}
+  {%- assign swatch_lines = settings.swatch_value_list | newline_to_br | strip_newlines | split: '<br />' -%}
+  {%- for line in swatch_lines -%}
+    {%- assign line_split = line | split: ':' -%}
+    {%- if line_split.last contains '#' -%}
+      [data-swatch="{{ line_split.first | replace: '"', '' | downcase }}"] { --swatch-background-color: {{- line_split.last -}} }
+    {%- else -%}
+      [data-swatch="{{ line_split.first | replace: '"', '' | downcase }}"] { --swatch-background-image: url({{- line_split.last | strip | file_img_url: '128x128', crop: settings.swatch_crop_align -}}) }
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
