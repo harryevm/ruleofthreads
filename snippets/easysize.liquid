@@ -1,0 +1,111 @@
+<script type="text/javascript" src="https://webapp.easysize.me/web_app_v1.0/js/easysize.js"></script>
+<script>
+  var product_title = {{ product.title | json }};
+  var product_tags = {{ product.tags | json }};
+  var product_variants = {{ product.variants | json }};
+  var product_options = {{ product.options | json }};
+  var size_option_title = 'Size';
+  var size_option_index = -1;
+  var sizes_in_stock = {};
+  var productType = {{ product.type | json }};
+  var product_type = product_tags?.find(tag => tag.includes("ES_CAT:"))?.split(':')?.[1]
+  product_type = product_type ?? productType.split(':')[0];
+  var product_model = product_title.split(":")[0]
+  var variant = {{ current_variant | json }};
+  
+//   var available_models = [
+//     'L/S Drop-Hem Henley',
+//     'L/S Drop-Hem Crew',
+//     'S/S Curve-Split Crew',
+//     'S/S Curve-Split V-Neck',
+//     'S/S Curve-Split Henley',
+//     'S/S Curve Slim-Fit Crew',
+//     'S/S Drop Hem Crew & Henley',
+// 	'S/S Straight Hem Crew & Henley'
+//   ];
+  
+
+  for (var i = 0; i < product_options.length; i++) {
+    if (product_options[i] === size_option_title) {
+      size_option_index = 'option'+(++i)
+      break;
+    }
+  }
+
+  for (var i = 0; i < product_variants.length; i++) {
+    var size = product_variants[i][size_option_index]
+    var stock = product_variants[i].available ? 1 : 0
+
+    if (sizes_in_stock.hasOwnProperty(size)) {
+      if (sizes_in_stock[size] < stock) {
+        sizes_in_stock[size] = stock
+      }
+    } else {
+      sizes_in_stock[size] = stock
+    }
+  }
+  
+  function waitForDropdown() {
+    if(document.querySelector('.cc-select')) {
+      document.querySelector('.cc-select').addEventListener('change', function(e) {
+        easy_size.sizeChangedTo(e.detail.selectedValue)
+      })
+    } else {
+       setTimeout(waitForDropdown, 50); 
+    }
+  }
+
+
+  var easysize_attributes = {
+        "shop_id": "64170458ac",
+        "placeholder": '.option-selectors',
+        "size_selector": '.option-selectors',
+        "order_button_id": '.form[action*="/cart"] button[type="submit"]',
+        "product_type": product_type,
+        "title": product_title,
+
+        "product_brand": "Basics by hill",
+        
+        "product_gender": "male",
+        "product_id": "{{ product.id }}",
+        "user_id": "{% if customer %} {{ customer.id }} {% else %} {{ "-1" }} {% endif %}",
+        "image_url": "https:{{ product.featured_image.src | img_url: "large" }}",
+		"product_model": product_model,
+    	"loaded": function() {
+    		document.querySelectorAll('form[action*="/cart/add"]').forEach(function(form) {
+                var input = document.createElement('input')
+          		input.type = "hidden"
+        		input.id = "esid-input"
+        		input.name = "properties[_esid]"
+        		input.value = EasySizeParametersDebug.easysize.pageview_id
+        		form.append(input)
+            })
+		},
+        "sizes_in_stock": sizes_in_stock,
+         "size_update_function": function(size) {
+           // var size_element = document.querySelector('li[data-value^="'+ size.toLowerCase().replaceAll("-", "") +'"]');
+           var size_element = document.querySelector('li[data-value^="'+ size.replaceAll("-", "") +'"]');
+           if (size_element) {
+             try {
+               custom_select.instances[0].instance.selectOption(size_element)
+             } catch(e) {
+               console.log('Easysize failed selecting size') 
+             }
+             return true;
+           }
+           return false;
+         }
+  }
+  
+//   available_models.forEach(function(model) {
+//     if (product_title.indexOf(model) !== -1) {
+//       easysize_attributes['product_model'] = model.split(':')[0]
+//     }
+//   });
+
+  var easy_size = new EasySize(easysize_attributes);
+  easy_size.start();
+  
+  waitForDropdown();
+  
+</script>
