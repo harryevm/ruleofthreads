@@ -5939,7 +5939,12 @@ body:not(.reveal-mobile-nav) .mobile-navigation-drawer .mobile-navigation-drawer
   margin: 0;
   line-height: 1;
 }
-
+.product-block .product-info .product-block__price-row.product-block__price-row--swatches-inline {
+    margin-top: 0px;
+}
+.product-block .product-info .product-block__price-row--swatches-inline .product-block__price:not(:last-child) {
+    margin-top: 0;
+}
 @media (max-width: 767.98px) {
   .product-list--per-row-mob-2 .product-block .product-info .product-block__price-row--swatches-inline {
     display: block;
@@ -6388,6 +6393,7 @@ body:not(.reveal-mobile-nav) .mobile-navigation-drawer .mobile-navigation-drawer
   font-size: {{ font_size_base_int | minus: 2 | at_least: 14 }}px;
   text-align: left;
 }
+
 
 /** variations of product blocks **/
 .product-block.collection-block .image-cont {
