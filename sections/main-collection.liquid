@@ -1,3 +1,4 @@
+{{ 'ajaxinate.min.js' | asset_url | script_tag }}
 <div class="card-margin" data-section-id="{{ section.id }}" data-filter-section-id="{{ section.id }}" data-section-type="collection-template" data-ajax-filtering="{{ section.settings.ajax_products }}" data-components="modal,price-range" data-cc-animate>
   {% paginate collection.products by section.settings.coll_num_per_page_int %}
 
@@ -83,7 +84,7 @@
     {% endif %}
 
     <div class="filters-adjacent collection-listing" data-ajax-container="products">
-      <div class="product-list product-list--per-row-{{ section.settings.grid }} product-list--per-row-mob-{{ settings.prod_thumb_mob_per_row }} product-list--image-shape-{{ settings.prod_thumb_shape }}">
+      <div  id="AjaxinateLoop" class="AjaxinateLoop product-list product-list--per-row-{{ section.settings.grid }} product-list--per-row-mob-{{ settings.prod_thumb_mob_per_row }} product-list--image-shape-{{ settings.prod_thumb_shape }}">
 
         {%- if section.settings.heading_layout == 'card' -%}
           <div class="product-block product-block--mobile-wide">
@@ -164,9 +165,33 @@
     </div>
   </div>
 
+ <div class="AjaxinatePagination" id="AjaxinatePagination">
+
+{% if paginate.next %}
+
+<a href="{{ paginate.next.url }}">loadmore</a>
+
+{% endif %}
+
+</div>
+  {% comment %}
   <div data-ajax-container="pagination">{% render 'pagination-control', paginate: paginate %}</div>
+    {% endcomment %}
 
   {% endpaginate %}
+<script type="text/javascript">
+
+document.addEventListener("DOMContentLoaded", function() {
+
+var endlessScroll = new Ajaxinate({
+
+method: 'click'
+
+});
+
+});
+
+</script>
 
   {% if collection.description != blank and section.settings.coll_desc_pos == 'below' %}
     <div class="container container--reading-width spaced-text-row" data-cc-animate>
