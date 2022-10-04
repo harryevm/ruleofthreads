@@ -82,7 +82,7 @@
         "970a4fba-6659-4a5b-9ec8-2fd6556bad24": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class=\"position_for_button\"><\/div>",
+            "custom_liquid": "",
             "show_in_quickbuy": false
           }
         },
