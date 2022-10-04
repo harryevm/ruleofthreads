@@ -74,6 +74,18 @@
             "size_chart_page": ""
           }
         },
+        "79f46892-1d64-4637-a547-614838406a27": {
+          "type": "shopify:\/\/apps\/fit-quiz-for-clothes-and-shoes\/blocks\/fitquiz-block\/b10c5f36-d033-4d47-9f46-97864f785a5a",
+          "settings": {
+          }
+        },
+        "970a4fba-6659-4a5b-9ec8-2fd6556bad24": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "",
+            "show_in_quickbuy": false
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -204,6 +216,8 @@
         "38b8113c-8f4d-470a-afaa-baab686d9035",
         "e6a8c5eb-7a71-4577-8edf-fb4fd3909c5b",
         "variant_picker",
+        "79f46892-1d64-4637-a547-614838406a27",
+        "970a4fba-6659-4a5b-9ec8-2fd6556bad24",
         "buy_buttons",
         "c1ae78d2-d17d-4941-9367-db42f33bf565",
         "3a2d4e9f-df6d-4638-a93b-5acf72d75c16",
